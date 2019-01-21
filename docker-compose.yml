@@ -1,0 +1,38 @@
+version: '3.4'
+
+networks:
+  my_network:
+    driver: bridge
+
+services:
+  aspnetefcorepostgresdocker:
+    image: ${DOCKER_REGISTRY-}aspnetefcorepostgresdocker
+    ports:
+      - 5000:80
+    depends_on:
+      - "postgresql"
+    build:
+      context: .
+      dockerfile: AspNetEFCorePostgresDocker/Dockerfile
+    environment:
+      DB_CONNECTION_STRING: "Host=postgresql;Port=5432;Database=blogdb;Username=bloguser;Password=bloguser;"
+    networks:
+      - my_network
+
+  postgresql:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./AspNetEFCorePostgresDocker/Sqlscripts/seed.sql :/docker-entrypoint-initdb.d/seed.sql
+    environment:
+      POSTGRES_USER: "bloguser"
+      POSTGRES_PASSWORD: "bloguser"
+      POSTGRES_DB: "blogdb"
+    networks:
+      - my_network
+
+volumes:
+  db_volume:
