@@ -3,9 +3,9 @@ This sample project demonstrate how to build ASP.Net Web API Core application wi
 
 # Projects
 **AspNetEFCorePostgresDocker**
- - Provides web interface to get Blogs from the database. Uses
- - Npgsql.EntityFrameworkCore.PostgreSQL nuget package to connect to   
- - PostgresSQL Contains sql script to intialize the postgresql database
+ - Provides web interface to get Blogs from the database.
+ - Uses Npgsql.EntityFrameworkCore.PostgreSQL nuget package to connect to PostgresSQL 
+ - Contains sql script to intialize the postgresql database
  
  **docker-compose.yml**
  - Creates containers for WebAPI and PostgresSQL 
